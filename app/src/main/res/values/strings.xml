@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">ApkaUpdate</string>
+
+    <string-array name="District">
+        <item>Outer</item>
+    </string-array>
+
+    <string-array name="QUERY">
+        <item>None</item>
+        <item>Query1</item>
+        <item>Query2</item>
+        <item>Query3</item>
+        <item>Query4</item>
+        <item>Query5</item>
+    </string-array>
+
+    <string-array name="Outer_District_PS">
+
+        <item>NARELA</item>
+        <item>ALIPUR</item>
+        <item>SAMAI PUR BADLI</item>
+        <item>VIJAY VIHAR</item>
+        <item>SOUTH ROHINI</item>
+        <item>SHAHBAD DAIRY</item>
+        <item>MANGOL PURI</item>
+        <item>BEGUM PUR</item>
+        <item>SULTAN PURI</item>
+        <item>K.N.KATJU MARG</item>
+        <item>AMAN VIHAR</item>
+        <item>NORTH ROHINI</item>
+        <item>KANJHAWLA</item>
+        <item>PRASHANT VIHAR</item>
+        <item>BAWANA</item>
+
+    </string-array>
+
+    <string-array name="IO_Shahbad0">
+        <item>Ashok Kumar</item>
+        <item>Avinish Kumar</item>
+        <item>Rajender Singh</item>
+        <item>MD. Imtyaz Ali</item>
+        <item>Darshana</item>
+        <item>Gaurav</item>
+        <item>Kulveer Singh</item>
+        <item>Mahesh</item>
+        <item>Naresh</item>
+        <item>Satish Chander</item>
+        <item>Ved Singh</item>
+        <item>Sat Pal Singh</item>
+        <item>Ved Bhardwaj</item>
+        <item>Rimpi Devi</item>
+        <item>Urmila</item>
+        <item>Devender</item>
+        <item>Ajay</item>
+        <item>Neeraj</item>
+        <item>Ravi</item>
+        <item>Sandeep</item>
+        <item>Kusham Lata</item>
+        <item>Om Prakash</item>
+        <item>Ranbir Singh</item>
+        <item>Bal Kishan</item>
+        <item>Ajay Kumar</item>
+        <item>Awaran</item>
+        <item>Amit</item>
+        <item>Anil</item>
+        <item>Arvind</item>
+        <item>Devender</item>
+        <item>Gurucharan</item>
+        <item>Leela Dhar</item>
+        <item>Mahesh Oraon</item>
+        <item>Neeraj</item>
+        <item>Pardeep</item>
+        <item>Pradeep</item>
+        <item>Phool Kumar</item>
+        <item>Rajbir</item>
+        <item>Rajender</item>
+        <item>Sachin</item>
+        <item>Satnarayan</item>
+        <item>Satbir</item>
+        <item>Seema Shaka</item>
+        <item>Umesh</item>
+        <item>Anita</item>
+        <item>Seema</item>
+        <item>Sunita Devi</item>
+    </string-array>
+
+</resources>
