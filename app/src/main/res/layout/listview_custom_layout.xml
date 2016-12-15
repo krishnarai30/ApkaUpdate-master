@@ -13,7 +13,9 @@
         android:layout_gravity="center_horizontal"
         android:clickable="false"
         android:textAlignment="center"
+        android:layout_weight="1"
         android:textSize="28dp"
         android:textColor="#FFFFFF"
         android:layout_margin="5dp" />
+
 </LinearLayout>

@@ -37,12 +37,13 @@ public class VerifyActivity extends AppCompatActivity {
         Random r = new Random();
         int randomOTP = r.nextInt(9999 - 1000) + 1000;
         String random=Integer.toString(randomOTP);
+        Toast.makeText(getApplicationContext(),random,Toast.LENGTH_LONG).show();
          msg91.getBalance("4");
 
 
         smob=emob.getText().toString().trim();
 
-        msg91.composeMessage("DELPOL",random+" is your One Time Password(OTP) for APKA UPDATE - Delhi Police.");
+       // msg91.composeMessage("DELPOL",random+" is your One Time Password(OTP) for APKA UPDATE - Delhi Police.");
         msg91.to(smob);
         msg91.setCountryCode("91");
         msg91.setRoute("4");
