@@ -1,6 +1,8 @@
 package sd_dtu.apkaupdate;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,10 +15,13 @@ import java.util.ArrayList;
 public class AllQueries extends AppCompatActivity {
 
     ArrayAdapter<String> adapter;
+    FIRDB firdb;
+    SQLiteDatabase sqLiteDatabase;
+    Cursor cursor;
 
-    String[] firarr={"fir111","fir112","fir113"};
+    ArrayList<String> firarr = new ArrayList<String>();
 
-
+    String number;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,23 +29,31 @@ public class AllQueries extends AppCompatActivity {
         ListView Querieslv=(ListView)findViewById(R.id.alquerieslv);
 
 
+        firdb = new FIRDB(getApplicationContext());
+        sqLiteDatabase = firdb.getReadableDatabase();
+        cursor = firdb.retrievecusrsor(sqLiteDatabase);
+        if(cursor.moveToFirst())
+        {
+            do{
+                number = cursor.getString(1);
+                firarr.add("FIR : " + number);
+            }while (cursor.moveToNext());
+        }
+
         adapter = new ArrayAdapter<String>(this,R.layout.listview_custom_layout,R.id.list_item,firarr);
         Querieslv.setAdapter(adapter);
 
-        Querieslv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        Querieslv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent,View view,int position,long id){
-                switch(position){
-                    case 1: Intent questioni=new Intent(AllQueries.this,DisplayDetails.class);
-                        startActivity(questioni);
-                        break;
-                    case 0:Intent notesi=new Intent(AllQueries.this,DisplayDetails.class);
-                        startActivity(notesi);
-                        break;
-                    case 2:Intent ebooksi=new Intent(AllQueries.this,DisplayDetails.class);
-                        startActivity(ebooksi);
-                        break;
-                }
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(AllQueries.this,DisplayDetails.class);
+                intent.putExtra("FIR",number);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }
