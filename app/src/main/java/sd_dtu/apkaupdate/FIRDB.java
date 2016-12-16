@@ -16,7 +16,8 @@ public class FIRDB extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION  = 1;
     private static final String DATABASE_NAME = "FIRINFO.DB";
     private static final String CREATE_QUERY = "CREATE TABLE " + UserContract.FirInfo.TABLENAME + "(" + UserContract.FirInfo.STATION +
-            " TEXT," + UserContract.FirInfo.FIRNO + " TEXT," + UserContract.FirInfo.INOFFICER + " TEXT," + UserContract.FirInfo.MOBILE + " TEXT," + UserContract.FirInfo.QUERY + " TEXT);";
+            " TEXT," + UserContract.FirInfo.FIRNO + " TEXT," + UserContract.FirInfo.INOFFICER + " TEXT," + UserContract.FirInfo.MOBILE + " TEXT," + UserContract.FirInfo.QUERY
+            + " TEXT,"+UserContract.FirInfo.DATE + " TEXT);";
 
     public FIRDB(Context context) {
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -29,7 +30,7 @@ public class FIRDB extends SQLiteOpenHelper {
         Log.e("DATABASE OPERATIONS","Database added");
     }
 
-    public void addinformation(String station,String firno,String officer,String mobile,String query,SQLiteDatabase db)
+    public void addinformation(String station,String firno,String officer,String mobile,String query,String date,SQLiteDatabase db)
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put(UserContract.FirInfo.STATION,station);
@@ -37,6 +38,7 @@ public class FIRDB extends SQLiteOpenHelper {
         contentValues.put(UserContract.FirInfo.INOFFICER,officer);
         contentValues.put(UserContract.FirInfo.MOBILE,mobile);
         contentValues.put(UserContract.FirInfo.QUERY,query);
+        contentValues.put(UserContract.FirInfo.DATE,date);
         db.insert(UserContract.FirInfo.TABLENAME,null,contentValues);
         Log.e("DATABASE OPERATIONS","One row is inserted");
     }
@@ -45,9 +47,19 @@ public class FIRDB extends SQLiteOpenHelper {
     {
         Cursor cursor;
         String[] projection = {UserContract.FirInfo.STATION,UserContract.FirInfo.FIRNO,UserContract.FirInfo.INOFFICER,
-                UserContract.FirInfo.MOBILE,UserContract.FirInfo.QUERY};
+                UserContract.FirInfo.MOBILE,UserContract.FirInfo.QUERY,UserContract.FirInfo.DATE};
 
         cursor =  db.query(UserContract.FirInfo.TABLENAME,projection,null,null,null,null,null);
+        return cursor;
+    }
+
+    public Cursor search(String fir_no,SQLiteDatabase db)
+    {
+        String[] projection = {UserContract.FirInfo.STATION,UserContract.FirInfo.INOFFICER,UserContract.FirInfo.MOBILE,
+                UserContract.FirInfo.QUERY,UserContract.FirInfo.DATE};
+        String selection = UserContract.FirInfo.FIRNO + " LIKE ?";
+        String[] selection_args = {fir_no};
+        Cursor cursor = db.query(UserContract.FirInfo.TABLENAME,projection,selection,selection_args,null,null,null);
         return cursor;
     }
 

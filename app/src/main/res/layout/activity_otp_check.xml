@@ -49,6 +49,8 @@
         android:textAlignment="center"
         android:layout_marginTop="20dp"
         android:hint=" Enter OTP"
+        android:inputType="number"
+        android:maxLength="4"
         android:nestedScrollingEnabled="false"
         android:background="@drawable/editshape"
         style="Phone" />

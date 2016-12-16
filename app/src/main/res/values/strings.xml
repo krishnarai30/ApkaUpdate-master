@@ -6,7 +6,7 @@
     </string-array>
 
     <string-array name="QUERY">
-        <item>None</item>
+        <item>Choose Query</item>
         <item>Query1</item>
         <item>Query2</item>
         <item>Query3</item>
@@ -16,6 +16,7 @@
 
     <string-array name="Outer_District_PS">
 
+        <item>Choose police station</item>
         <item>SHAHBAD DAIRY</item>
         <item>NARELA</item>
         <item>ALIPUR</item>
@@ -35,6 +36,7 @@
     </string-array>
 
     <string-array name="IO_Shahbad0">
+        <item>Choose the Investigation Officer</item>
         <item>Ashok Kumar</item>
         <item>Avinish Kumar</item>
         <item>Rajender Singh</item>

@@ -7,12 +7,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#607D8B"
-    android:fillViewport="true"
-    android:scrollbarAlwaysDrawHorizontalTrack="true">
+    >
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <ImageView
         android:layout_marginTop="20dp"
         android:layout_width="150dp"
@@ -20,15 +16,227 @@
         app:srcCompat="@mipmap/croplogo"
         android:id="@+id/imageView3"
         android:layout_gravity="center_horizontal"/>
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="15dp"
+         android:layout_marginLeft="15dp"
+         android:layout_marginRight="15dp"
+         android:background="#000"
+         android:orientation="horizontal"
+         >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DISTRICT :"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                android:textColor="#fff"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OUTER"
+                android:layout_weight="1"
+                android:textSize="18dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                />
+     </LinearLayout>
+     <ScrollView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:background="#607D8B"
 
+         >
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             >
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:padding="15dp"
+             >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="POLICE STATION : "
+                android:textSize="30dp"
+                android:textColor="#fff"
+                android:background="#000"
+                android:paddingLeft="5dp"
+                />
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="station comes here :"
+                 android:id="@+id/station"
+                 android:paddingLeft="5dp"
+                 android:textSize="18dp"
+                 android:textColor="#000"
+                 android:background="#cccdcd"
+                 />
+         </LinearLayout>
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:layout_marginBottom="15dp"
+             android:layout_marginLeft="15dp"
+             android:layout_marginRight="15dp"
+             >
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="FIR NUMBER : "
+                 android:textSize="30dp"
+                 android:textColor="#fff"
+                 android:background="#000"
+                 android:paddingLeft="5dp"
+                 />
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="FIR NUMBER here :"
+                 android:id="@+id/fir_no"
+                 android:textSize="18dp"
+                 android:textColor="#000"
+                 android:paddingLeft="5dp"
+                 android:background="#cccdcd"
+                 />
+         </LinearLayout>
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:layout_marginBottom="15dp"
+             android:layout_marginLeft="15dp"
+             android:layout_marginRight="15dp"
+             >
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="INVESTIGATION OFFICER"
+                 android:textSize="25dp"
+                 android:textColor="#fff"
+                 android:background="#000"
+                 android:paddingLeft="5dp"
+                 />
+             <TextView
+                 android:paddingTop="5dp"
+                 android:paddingLeft="5dp"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="NAMe will be here"
+                 android:id="@+id/name1"
+                 android:textColor="#000"
+                 android:background="#cccdcd"
+                 android:textSize="17dp"
+                 />
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 >
+                 <TextView
+                     android:paddingTop="5dp"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="MOBILE NO. : "
+                     android:layout_weight="1"
+                     android:textSize="17dp"
+                     android:paddingLeft="5dp"
+                     android:textColor="#000"
+                     android:background="#cccdcd"
+                     android:textStyle="bold"
+                     android:paddingBottom="5dp"
+                     />
+                 <TextView
+                     android:paddingTop="5dp"
+                     android:paddingBottom="5dp"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:id="@+id/mobile"
+                     android:textColor="#000"
+                     android:background="#cccdcd"
+                     android:text="MOBILE WILL BE HERE"
+                     android:textSize="17dp"
+                     />
+             </LinearLayout>
+         </LinearLayout>
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 android:paddingLeft="15dp"
+                 android:paddingRight="15dp"
+                 android:background="#000"
+                 >
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="0.6"
+                     android:text="DATE : "
+                     android:textColor="#fff"
+                     android:background="#000"
+                     android:textSize="30dp"
+                     android:textStyle="bold"
+                     />
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:text="date"
+                     android:textColor="#fff"
+                     android:textSize="20dp"
+                     android:id="@+id/date"
+                     />
+             </LinearLayout>
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+
+                 >
+                 <TextView
+                     android:paddingLeft="15dp"
+                     android:paddingRight="15dp"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:text="QUERY :"
+                     android:textColor="#fff"
+                     android:textStyle="bold"
+                     android:background="#000"
+                     android:textSize="30dp"
+                     />
+                 <TextView
+                     android:paddingLeft="15dp"
+                     android:paddingRight="15dp"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:text="QUERY IS HERE"
+                     android:textColor="#000"
+                     android:background="#cccdcd"
+                     android:id="@+id/query1"
+                     />
+             </LinearLayout>
+         </LinearLayout>
+     </ScrollView>
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:text="Complaint Button"
+        android:layout_marginTop="20dp"
+        android:id="@+id/comp_button"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/butshape"
         android:textColor="#FFFFFF"
         />
-    </ScrollView>
 </LinearLayout>

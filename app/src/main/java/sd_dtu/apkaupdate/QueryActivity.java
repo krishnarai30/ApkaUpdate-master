@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.katepratik.msg91api.MSG91;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by sam AR on 6/4/2016.
@@ -62,7 +64,7 @@ public class QueryActivity extends Activity{
 
         fillnodd.setMovementMethod(new ScrollingMovementMethod());
 
-        // msg91.validate();
+        msg91.validate();
 
         donedd = (Button) findViewById(R.id.dropdownbtn);
         donedd.setMovementMethod(new ScrollingMovementMethod());
@@ -120,13 +122,15 @@ public class QueryActivity extends Activity{
             @Override
             public void onClick(View view) {
 
+                Date d = new Date();
+                CharSequence s  = DateFormat.format("MMMM d, yyyy ", d.getTime());
 
                 String station = pstationsp.getSelectedItem().toString();
                 String firno = fillnodd.getText().toString();
                 String iofficer = statussp.getSelectedItem().toString();
                 String mobile = Name.getText().toString().trim();
                 String query;
-                if (querysp.getSelectedItem().toString().equals("None")) {
+                if (querysp.getSelectedItem().toString().equals("Choose Query")) {
                     query = Query.getText().toString();
                 } else {
                     query = querysp.getSelectedItem().toString();
@@ -134,19 +138,24 @@ public class QueryActivity extends Activity{
 
                 if (firno.equals("") || mobile.equals("")) {
                     Toast.makeText(getApplicationContext(), "Enter all the fields !", Toast.LENGTH_LONG).show();
-                } else {
+                }
+                else if(mobile.length() < 10)
+                {
+                    Toast.makeText(getApplicationContext(),"Enter the correct mobile number !",Toast.LENGTH_LONG).show();
+                }
+                else {
 
-//                    msg91.getBalance("4");
-//                    msg91.to(mobile);
-//                    msg91.composeMessage("FIRREG",query);
-//                    msg91.setCountryCode("91");
-//                    msg91.setRoute("4");
-//                    msg91.send();
+                    msg91.getBalance("4");
+                    msg91.to(mobile);
+                    msg91.composeMessage("FIRREG",query);
+                    msg91.setCountryCode("91");
+                    msg91.setRoute("4");
+                    msg91.send();
 
                     firdb = new FIRDB(getApplicationContext());
                     sqLiteDatabase = firdb.getWritableDatabase();
                     firdb = new FIRDB(getApplicationContext());
-                    firdb.addinformation(station, firno, iofficer, mobile, query,sqLiteDatabase);
+                    firdb.addinformation(station, firno, iofficer, mobile, query,s.toString(),sqLiteDatabase);
 
                    // detailsProvider = new DetailsProvider(station,firno,iofficer,mobile,query);
                     Toast.makeText(QueryActivity.this, "Your Query is Submitted!!", Toast.LENGTH_LONG).show();

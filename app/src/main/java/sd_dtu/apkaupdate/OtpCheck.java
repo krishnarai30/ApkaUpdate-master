@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.katepratik.msg91api.MSG91;
+
+import java.util.Random;
 
 
 public class OtpCheck extends AppCompatActivity {
@@ -18,11 +21,20 @@ public class OtpCheck extends AppCompatActivity {
     boolean isCounterRunning=false;
     EditText otp;
     String otpstr,option;
+    String snumber;
+
+    public static boolean t = false;
+
+    MSG91 msg91 = new MSG91("130512A0kXtdnd5820df36");
 
 
     private Handler handler=new Handler();
 
 
+    @Override
+    public void onBackPressed() {
+        return;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -33,8 +45,13 @@ public class OtpCheck extends AppCompatActivity {
         resendotp=(TextView)findViewById(R.id.resend);
         otp=(EditText)findViewById(R.id.enterOTP);
 
-          option=getIntent().getStringExtra("choice");
+        msg91.validate();
 
+        option=getIntent().getStringExtra("choice");
+
+        snumber = getIntent().getStringExtra("number");
+
+        msg91.getBalance("4");
 
 
 
@@ -61,6 +78,16 @@ public class OtpCheck extends AppCompatActivity {
                     if( !isCounterRunning ){
                         isCounterRunning = true;
                         countDownTimer.start();
+                        Random r = new Random();
+                        int randomOTP = r.nextInt(9999 - 1000) + 1000;
+                        String random=Integer.toString(randomOTP);
+                        msg91.getBalance("4");
+                        msg91.composeMessage("DELPOL",random+" is your One Time Password(OTP) for APKA UPDATE - Delhi Police.");
+                        msg91.to(snumber);
+                        msg91.setCountryCode("91");
+                        msg91.setRoute("4");
+                        msg91.send();
+
                     }
                     else{
                         countDownTimer.cancel();
@@ -82,6 +109,8 @@ public class OtpCheck extends AppCompatActivity {
         otpstr=otp.getText().toString();
         if(otpstr.equals(option)){
 
+
+
             Toast.makeText(OtpCheck.this,"User Verified!!!",Toast.LENGTH_LONG).show();
             Intent intent=new Intent(OtpCheck.this,MenuActivity.class);
             startActivity(intent);
@@ -99,7 +128,4 @@ public class OtpCheck extends AppCompatActivity {
 
 
     }
-
-
-
 }

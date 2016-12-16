@@ -31,7 +31,9 @@
         <activity android:name=".VerifyActivity" />
         <activity android:name=".AllQueries" />
         <activity android:name=".DisplayEnquire" />
-        <activity android:name=".DisplayDetails" />
+        <activity android:name=".DisplayDetails"
+            android:parentActivityName=".MenuActivity"
+            />
         <activity android:name=".MenuActivity"></activity>
     </application>
 
