@@ -59,6 +59,29 @@ public class DisplayDetails extends AppCompatActivity {
         }
 
 
+        button.setEnabled(false);
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(8640000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                DisplayDetails.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        button.setEnabled(true);
+
+                    }
+                });
+            }
+        }).start();
         Toast.makeText(this,"Complaint Button will start working here after 10 days.",Toast.LENGTH_LONG).show();
 
 
