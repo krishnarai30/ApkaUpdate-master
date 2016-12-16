@@ -6,6 +6,5 @@
     android:textSize="15sp"
     android:gravity="center"
     android:textColor="#FFFFFF"
-    android:background="@drawable/spinnershape"
     android:padding="5dip"
     />

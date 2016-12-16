@@ -14,25 +14,38 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.katepratik.msg91api.MSG91;
+
+import java.util.ArrayList;
+
 /**
  * Created by sam AR on 6/4/2016.
  */
+
 public class QueryActivity extends Activity{
 
 
-    Context context = this;
-    SQLiteDatabase sqLiteDatabase;
+
     Spinner districtsp,pstationsp,statussp,querysp;
     EditText fillnodd;
     Button donedd;
     EditText Name,Query;
+    MSG91 msg91 = new MSG91("130512A0kXtdnd5820df36");
 
+    //Context context = this;
+    SQLiteDatabase sqLiteDatabase;
     FIRDB firdb;
+
+    //DetailsProvider detailsProvider;
 
     ArrayAdapter<CharSequence> districtadapter;
     ArrayAdapter<CharSequence> policestationadapter;
     ArrayAdapter<CharSequence> statusadapter;
     ArrayAdapter<CharSequence> queryadapter;
+
+    //public static ArrayList<DetailsProvider> detailsProviders = new ArrayList<DetailsProvider>();
+
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +62,8 @@ public class QueryActivity extends Activity{
 
         fillnodd.setMovementMethod(new ScrollingMovementMethod());
 
+        // msg91.validate();
+
         donedd = (Button) findViewById(R.id.dropdownbtn);
         donedd.setMovementMethod(new ScrollingMovementMethod());
 
@@ -62,9 +77,9 @@ public class QueryActivity extends Activity{
 //                switch (position) {
 //
 //                    case 0:
-                        policestationadapter = ArrayAdapter.createFromResource(getBaseContext(), R.array.Outer_District_PS, R.layout.support_simple_spinner_dropdown_item);
-                        policestationadapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                        pstationsp.setAdapter(policestationadapter);
+        policestationadapter = ArrayAdapter.createFromResource(getBaseContext(), R.array.Outer_District_PS, R.layout.support_simple_spinner_dropdown_item);
+        policestationadapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        pstationsp.setAdapter(policestationadapter);
 //                        pstationsp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //                            @Override
 //                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -105,26 +120,38 @@ public class QueryActivity extends Activity{
             @Override
             public void onClick(View view) {
 
-                firdb = new FIRDB(context);
-                sqLiteDatabase = firdb.getWritableDatabase();
+
                 String station = pstationsp.getSelectedItem().toString();
                 String firno = fillnodd.getText().toString();
                 String iofficer = statussp.getSelectedItem().toString();
-                String mobile = Name.getText().toString();
+                String mobile = Name.getText().toString().trim();
                 String query;
-                //if (querysp.getSelectedItem().toString().equals("None")) {
-                  //  query = Query.getText().toString();
-                //} else {
+                if (querysp.getSelectedItem().toString().equals("None")) {
+                    query = Query.getText().toString();
+                } else {
                     query = querysp.getSelectedItem().toString();
-                //}
+                }
 
                 if (firno.equals("") || mobile.equals("")) {
                     Toast.makeText(getApplicationContext(), "Enter all the fields !", Toast.LENGTH_LONG).show();
                 } else {
 
-                    firdb.addinformation(station, firno, iofficer, mobile, query, sqLiteDatabase);
+//                    msg91.getBalance("4");
+//                    msg91.to(mobile);
+//                    msg91.composeMessage("FIRREG",query);
+//                    msg91.setCountryCode("91");
+//                    msg91.setRoute("4");
+//                    msg91.send();
 
+                    firdb = new FIRDB(getApplicationContext());
+                    sqLiteDatabase = firdb.getWritableDatabase();
+                    firdb = new FIRDB(getApplicationContext());
+                    firdb.addinformation(station, firno, iofficer, mobile, query,sqLiteDatabase);
+
+                   // detailsProvider = new DetailsProvider(station,firno,iofficer,mobile,query);
                     Toast.makeText(QueryActivity.this, "Your Query is Submitted!!", Toast.LENGTH_LONG).show();
+
+                    //Bundle bundle;
 
                     firdb.close();
 
@@ -148,6 +175,5 @@ public class QueryActivity extends Activity{
 //        });
     }
 }
-
 
 
