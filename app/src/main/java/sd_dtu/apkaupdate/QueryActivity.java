@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.katepratik.msg91api.MSG91;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -124,6 +125,15 @@ public class QueryActivity extends Activity{
                 Date d = new Date();
                 CharSequence s  = DateFormat.format("MMMM d, yyyy ", d.getTime());
 
+                Calendar cal = Calendar.getInstance();
+
+                int millisecond = cal.get(Calendar.MILLISECOND);
+                int second = cal.get(Calendar.SECOND);
+                int minute = cal.get(Calendar.MINUTE);
+                int hourofday = cal.get(Calendar.HOUR_OF_DAY);
+
+                String time = hourofday + ":" + minute + ":" + second;
+
                 String station = pstationsp.getSelectedItem().toString();
                 String firno = fillnodd.getText().toString();
                 String iofficer = statussp.getSelectedItem().toString();
@@ -132,6 +142,7 @@ public class QueryActivity extends Activity{
                 if (querysp.getSelectedItem().toString().equals("Choose Query")) {
                     query = Query.getText().toString();
                 } else {
+                    Query.setEnabled(false);
                     query = querysp.getSelectedItem().toString();
                 }
 
@@ -146,7 +157,7 @@ public class QueryActivity extends Activity{
 
                     msg91.getBalance("4");
                     msg91.to(mobile);
-                    msg91.composeMessage("APKUDT",query);
+                    msg91.composeMessage("APKUDT","FIR NO : " + firno + "\n"  + query);
                     msg91.setCountryCode("91");
                     msg91.setRoute("4");
                     msg91.send();
@@ -160,7 +171,7 @@ public class QueryActivity extends Activity{
                     firdb = new FIRDB(getApplicationContext());
                     sqLiteDatabase = firdb.getWritableDatabase();
                     firdb = new FIRDB(getApplicationContext());
-                    firdb.addinformation(station, firno, iofficer, mobile, query,s.toString(),sqLiteDatabase);
+                    firdb.addinformation(station, firno, iofficer, mobile, query,s.toString(),time,sqLiteDatabase);
 
 
                     // detailsProvider = new DetailsProvider(station,firno,iofficer,mobile,query);
@@ -190,5 +201,3 @@ public class QueryActivity extends Activity{
 //        });
     }
 }
-
-

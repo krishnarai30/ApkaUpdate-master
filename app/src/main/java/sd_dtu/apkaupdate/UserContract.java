@@ -14,6 +14,7 @@ public class UserContract {
         public static final String MOBILE = "mobileno";
         public static final String QUERY = "customquery";
         public static final String DATE = "date";
+        public static final String TIME = "time";
         public static final String TABLENAME = "FIRTABLE";
     }
 }

@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class DisplayDetails extends AppCompatActivity {
 
 
-    TextView pstation,firno,officer,mobile,query,date;
+    TextView pstation,firno,officer,mobile,query,date,time;
     Button button;
     SQLiteDatabase sqLiteDatabase;
     FIRDB firdb;
@@ -29,7 +29,7 @@ public class DisplayDetails extends AppCompatActivity {
 
         String s = getIntent().getStringExtra("FIR");
 
-        getSupportActionBar().setTitle(s);
+        getSupportActionBar().setTitle("FIR NO : " + s);
 
         pstation = (TextView) findViewById(R.id.station);
         firno = (TextView) findViewById(R.id.fir_no);
@@ -38,6 +38,7 @@ public class DisplayDetails extends AppCompatActivity {
         query = (TextView) findViewById(R.id.query1);
         button = (Button) findViewById(R.id.comp_button);
         date = (TextView)findViewById(R.id.date);
+        time = (TextView)findViewById(R.id.time1);
 
         firno.setText(s);
 
@@ -51,11 +52,13 @@ public class DisplayDetails extends AppCompatActivity {
             String mobileno = cursor.getString(2);
             String qquery = cursor.getString(3);
             String ddate = cursor.getString(4);
+            String ttime = cursor.getString(5);
             pstation.setText(station);
             officer.setText(iofficer);
             mobile.setText(mobileno);
             query.setText(qquery);
             date.setText(ddate);
+            time.setText(ttime);
         }
 
 
