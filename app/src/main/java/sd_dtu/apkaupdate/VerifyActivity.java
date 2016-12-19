@@ -1,6 +1,8 @@
 package sd_dtu.apkaupdate;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.katepratik.msg91api.MSG91;
@@ -26,6 +29,7 @@ public class VerifyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify);
         emob=(EditText)findViewById(R.id.Mobile);
@@ -54,18 +58,28 @@ public class VerifyActivity extends AppCompatActivity {
             Random r = new Random();
             int randomOTP = r.nextInt(9999 - 1000) + 1000;
             String random=Integer.toString(randomOTP);
-            //Toast.makeText(getApplicationContext(),random,Toast.LENGTH_LONG).show();
+
+            Toast.makeText(getApplicationContext(),random,Toast.LENGTH_LONG).show();
+
             msg91.getBalance("4");
-            msg91.composeMessage("DELPOL",random+" is your One Time Password(OTP) for APKA UPDATE - Delhi Police.");
+           // msg91.composeMessage("DELPOL",random+" is your One Time Password(OTP) for APKA UPDATE - Delhi Police.");
             msg91.to(smob);
             msg91.setCountryCode("91");
             msg91.setRoute("4");
-            msg91.send();
+           // msg91.send();
+
+            ProgressDialog progressDialog=new ProgressDialog(VerifyActivity.this);
+            progressDialog.setTitle("Apka Update");
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+
+            Toast.makeText(getApplicationContext(),"Wait while you recieve the OTP..",Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(VerifyActivity.this, OtpCheck.class);
             intent.putExtra("choice", random);
             intent.putExtra("number", smob);
             startActivity(intent);
+            //progressDialog.dismiss();
         }
     }
 

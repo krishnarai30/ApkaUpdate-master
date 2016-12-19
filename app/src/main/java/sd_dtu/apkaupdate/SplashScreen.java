@@ -22,20 +22,20 @@ public class SplashScreen extends Activity {
             public void run() {
                 try {
                     sleep(3000);
-                    SharedPreferences sharedPref = getSharedPreferences("data",MODE_PRIVATE);
-                    int number = sharedPref.getInt("isLogged", 0);
-                    if(number == 0) {
+//                    SharedPreferences sharedPref = getSharedPreferences("data",MODE_PRIVATE);
+//                    int number = sharedPref.getInt("isLogged", 0);
+//                    if(number == 0) {
                         Intent intent=new Intent(getApplicationContext(),VerifyActivity.class);
                         startActivity(intent);
                         finish();
-                        SharedPreferences.Editor prefEditor = sharedPref.edit();
-                        prefEditor.putInt("isLogged",1);
-                        prefEditor.commit();
-                    } else {
-                        Intent intent=new Intent(getApplicationContext(),MenuActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
+//                        SharedPreferences.Editor prefEditor = sharedPref.edit();
+//                        prefEditor.putInt("isLogged",1);
+//                        prefEditor.commit();
+//                    } else {
+//                        Intent intent=new Intent(getApplicationContext(),MenuActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();

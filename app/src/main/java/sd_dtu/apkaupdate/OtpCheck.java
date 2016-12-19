@@ -1,6 +1,7 @@
 package sd_dtu.apkaupdate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -78,9 +79,13 @@ public class OtpCheck extends AppCompatActivity {
                     if( !isCounterRunning ){
                         isCounterRunning = true;
                         countDownTimer.start();
+
                         Random r = new Random();
                         int randomOTP = r.nextInt(9999 - 1000) + 1000;
                         String random=Integer.toString(randomOTP);
+
+                        option = random;
+
                         msg91.getBalance("4");
                         msg91.composeMessage("DELPOL",random+" is your One Time Password(OTP) for APKA UPDATE - Delhi Police.");
                         msg91.to(snumber);

@@ -61,6 +61,7 @@ public class DisplayDetails extends AppCompatActivity {
 
         button.setEnabled(false);
 
+        
         new Thread(new Runnable() {
 
             @Override

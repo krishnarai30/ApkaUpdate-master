@@ -1,14 +1,13 @@
 package sd_dtu.apkaupdate;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -147,17 +146,24 @@ public class QueryActivity extends Activity{
 
                     msg91.getBalance("4");
                     msg91.to(mobile);
-                    msg91.composeMessage("FIRREG",query);
+                    msg91.composeMessage("APKUDT",query);
                     msg91.setCountryCode("91");
                     msg91.setRoute("4");
                     msg91.send();
+
+
+                    ProgressDialog progressDialog=new ProgressDialog(QueryActivity.this);
+                    progressDialog.setTitle("Apka Update");
+                    progressDialog.setMessage("Loading...");
+                    progressDialog.show();
 
                     firdb = new FIRDB(getApplicationContext());
                     sqLiteDatabase = firdb.getWritableDatabase();
                     firdb = new FIRDB(getApplicationContext());
                     firdb.addinformation(station, firno, iofficer, mobile, query,s.toString(),sqLiteDatabase);
 
-                   // detailsProvider = new DetailsProvider(station,firno,iofficer,mobile,query);
+
+                    // detailsProvider = new DetailsProvider(station,firno,iofficer,mobile,query);
                     Toast.makeText(QueryActivity.this, "Your Query is Submitted!!", Toast.LENGTH_LONG).show();
 
                     //Bundle bundle;
