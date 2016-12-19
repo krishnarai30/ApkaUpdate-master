@@ -59,9 +59,23 @@ public class DisplayDetails extends AppCompatActivity {
         }
 
 
+        setButton(button);
+
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                //Toast.makeText(getApplicationContext(),"IF TRUE...then work is done",Toast.LENGTH_LONG).show();
+//            }
+//        });
+
+    }
+
+    public void setButton(final Button button1)
+    {
         button.setEnabled(false);
 
-        
+
         new Thread(new Runnable() {
 
             @Override
@@ -77,14 +91,13 @@ public class DisplayDetails extends AppCompatActivity {
 
                     @Override
                     public void run() {
-                        button.setEnabled(true);
+                        button1.setEnabled(true);
 
                     }
                 });
             }
         }).start();
         Toast.makeText(this,"Complaint Button will start working here after 10 days.",Toast.LENGTH_LONG).show();
-
 
     }
 }

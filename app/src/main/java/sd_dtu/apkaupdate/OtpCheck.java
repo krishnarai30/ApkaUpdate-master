@@ -1,9 +1,12 @@
 package sd_dtu.apkaupdate;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,6 +45,7 @@ public class OtpCheck extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp_check);
+
         Text=(TextView)findViewById(R.id.time);
         resendotp=(TextView)findViewById(R.id.resend);
         otp=(EditText)findViewById(R.id.enterOTP);
@@ -49,6 +53,7 @@ public class OtpCheck extends AppCompatActivity {
         msg91.validate();
 
         option=getIntent().getStringExtra("choice");
+
 
         snumber = getIntent().getStringExtra("number");
 
@@ -86,6 +91,8 @@ public class OtpCheck extends AppCompatActivity {
 
                         option = random;
 
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("OTP",option).commit();
+
                         msg91.getBalance("4");
                         msg91.composeMessage("DELPOL",random+" is your One Time Password(OTP) for APKA UPDATE - Delhi Police.");
                         msg91.to(snumber);
@@ -112,6 +119,10 @@ public class OtpCheck extends AppCompatActivity {
     public void onclick(View view){
 
         otpstr=otp.getText().toString();
+
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("OTP",option).commit();
+
+
         if(otpstr.equals(option)){
 
 

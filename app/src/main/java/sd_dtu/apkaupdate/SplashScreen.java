@@ -3,6 +3,7 @@ package sd_dtu.apkaupdate;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -22,20 +23,24 @@ public class SplashScreen extends Activity {
             public void run() {
                 try {
                     sleep(3000);
+                    String a = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("OTP", "COOL");
+
+                    if(a.equals("COOL")){
+
 //                    SharedPreferences sharedPref = getSharedPreferences("data",MODE_PRIVATE);
 //                    int number = sharedPref.getInt("isLogged", 0);
 //                    if(number == 0) {
                         Intent intent=new Intent(getApplicationContext(),VerifyActivity.class);
                         startActivity(intent);
-                        finish();
+                        finish();}
 //                        SharedPreferences.Editor prefEditor = sharedPref.edit();
 //                        prefEditor.putInt("isLogged",1);
 //                        prefEditor.commit();
-//                    } else {
-//                        Intent intent=new Intent(getApplicationContext(),MenuActivity.class);
-//                        startActivity(intent);
-//                        finish();
-//                    }
+                   else {
+                        Intent intent=new Intent(getApplicationContext(),MenuActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
