@@ -14,11 +14,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.katepratik.msg91api.MSG91;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sam AR on 6/4/2016.
@@ -27,6 +34,8 @@ import java.util.Date;
 public class QueryActivity extends Activity{
 
 
+
+    String server_url = "http://192.168.0.4/apkaupdate.php";
 
     Spinner districtsp,pstationsp,statussp,querysp;
     EditText fillnodd;
@@ -122,31 +131,20 @@ public class QueryActivity extends Activity{
             @Override
             public void onClick(View view) {
 
-                Date d = new Date();
-                CharSequence s  = DateFormat.format("MMMM d, yyyy ", d.getTime());
-
-                Calendar cal = Calendar.getInstance();
-
-                int millisecond = cal.get(Calendar.MILLISECOND);
-                int second = cal.get(Calendar.SECOND);
-                int minute = cal.get(Calendar.MINUTE);
-                int hourofday = cal.get(Calendar.HOUR_OF_DAY);
-
-                String time = hourofday + ":" + minute + ":" + second;
-
-                String station = pstationsp.getSelectedItem().toString();
-                String firno = fillnodd.getText().toString();
-                String iofficer = statussp.getSelectedItem().toString();
-                String mobile = Name.getText().toString().trim();
-                String query;
+                final String station = pstationsp.getSelectedItem().toString();
+                final String firnum = fillnodd.getText().toString();
+                final String iofficer = statussp.getSelectedItem().toString();
+                final String mobile = Name.getText().toString().trim();
+                final String query;
                 if (querysp.getSelectedItem().toString().equals("Choose Query")) {
+                    Query.setVisibility(View.VISIBLE);
                     query = Query.getText().toString();
                 } else {
-                    Query.setEnabled(false);
+                    Query.setVisibility(View.GONE);
                     query = querysp.getSelectedItem().toString();
                 }
 
-                if (firno.equals("") || mobile.equals("")) {
+                if (firnum.equals("") || mobile.equals("")) {
                     Toast.makeText(getApplicationContext(), "Enter all the fields !", Toast.LENGTH_LONG).show();
                 }
                 else if(mobile.length() < 10)
@@ -155,23 +153,64 @@ public class QueryActivity extends Activity{
                 }
                 else {
 
-                    msg91.getBalance("4");
-                    msg91.to(mobile);
-                    msg91.composeMessage("APKUDT","FIR NO : " + firno + "\n"  + query);
-                    msg91.setCountryCode("91");
-                    msg91.setRoute("4");
-                    msg91.send();
-
-
                     ProgressDialog progressDialog=new ProgressDialog(QueryActivity.this);
                     progressDialog.setTitle("Apka Update");
                     progressDialog.setMessage("Loading...");
                     progressDialog.show();
 
+                    Date d = new Date();
+                    final CharSequence s  = DateFormat.format("MMMM d, yyyy ", d.getTime());
+
+                    Calendar cal = Calendar.getInstance();
+
+                    int millisecond = cal.get(Calendar.MILLISECOND);
+                    int second = cal.get(Calendar.SECOND);
+                    int minute = cal.get(Calendar.MINUTE);
+                    int hourofday = cal.get(Calendar.HOUR_OF_DAY);
+
+                    final String time = hourofday + ":" + minute + ":" + second;
+
+
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, server_url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                }
+                            },
+                            new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(),"ERROR !!",Toast.LENGTH_LONG).show();
+                        }
+                    }){
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String,String> params = new HashMap<String, String>();
+                            params.put("firno",firnum);
+                            params.put("district","Outer");
+                            params.put("station",station);
+                            params.put("officer",iofficer);
+                            params.put("mobile",mobile);
+                            params.put("query",query);
+                            params.put("date",s.toString());
+                            params.put("time",time);
+                            return params;
+                        }
+                    };
+
+                    MySingleton.getInstance(QueryActivity.this).addToRequestQueue(stringRequest);
+
+                    msg91.getBalance("4");
+                    msg91.to(mobile);
+                    msg91.composeMessage("APKUDT","FIR NO : " + firnum + "\n"  + query);
+                    msg91.setCountryCode("91");
+                    msg91.setRoute("4");
+                    msg91.send();
+
                     firdb = new FIRDB(getApplicationContext());
                     sqLiteDatabase = firdb.getWritableDatabase();
                     firdb = new FIRDB(getApplicationContext());
-                    firdb.addinformation(station, firno, iofficer, mobile, query,s.toString(),time,sqLiteDatabase);
+                    firdb.addinformation(station, firnum, iofficer, mobile, query,s.toString(),time,sqLiteDatabase);
 
 
                     // detailsProvider = new DetailsProvider(station,firno,iofficer,mobile,query);

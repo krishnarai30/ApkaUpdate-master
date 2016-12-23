@@ -60,7 +60,7 @@ public class VerifyActivity extends AppCompatActivity {
 
         if(isNetworkAvailable(getApplicationContext()))
         {
-            otpbtn.setEnabled(true);
+
 
         smob=emob.getText().toString().trim();
 
@@ -70,9 +70,17 @@ public class VerifyActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Enter the proper Number",Toast.LENGTH_LONG).show();
         }
         else {
+            Toast.makeText(getApplicationContext(),"Wait while you recieve the OTP..",Toast.LENGTH_LONG).show();
+            ProgressDialog progressDialog=new ProgressDialog(VerifyActivity.this);
+            progressDialog.setTitle("Apka Update");
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+            otpbtn.setEnabled(true);
+
             Random r = new Random();
             int randomOTP = r.nextInt(9999 - 1000) + 1000;
             String random=Integer.toString(randomOTP);
+
 
             //Toast.makeText(getApplicationContext(),random,Toast.LENGTH_LONG).show();
 
@@ -82,16 +90,12 @@ public class VerifyActivity extends AppCompatActivity {
             msg91.setCountryCode("91");
             msg91.setRoute("4");
 
-            Toast.makeText(getApplicationContext(),"Wait while you recieve the OTP..",Toast.LENGTH_LONG).show();
 
             msg91.send();
 
 
 
-            ProgressDialog progressDialog=new ProgressDialog(VerifyActivity.this);
-            progressDialog.setTitle("Apka Update");
-            progressDialog.setMessage("Loading...");
-            progressDialog.show();
+
 
 
             Intent intent = new Intent(VerifyActivity.this, OtpCheck.class);
